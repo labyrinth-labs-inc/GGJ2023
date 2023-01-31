@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 6075488e92597c9478c885b7b54674a3, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c56e28e54cac24b04ae3dd957d214534, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 410087040}
-  m_IndirectSpecularColor: {r: 0.26122633, g: 0.7009046, b: 0.83614427, a: 1}
+  m_IndirectSpecularColor: {r: 0.11504329, g: 0.33158982, b: 0.71565723, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -827,6 +827,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54264d6f7fc1e294e93f0f421447d400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHand: {fileID: 1094213808}
+  leftHandController: 4
+  triggerLeftHand: 4
+  grabLeftHand: 5
+  rightHand: {fileID: 343006806}
+  rightHandController: 5
+  triggerRightHand: 4
+  grabRightHand: 5
+  oVRInputModule: {fileID: 9036010659497975738}
+  mainHand_Value: RightHand
+  currentMainHandTransform: {fileID: 343006806}
+  currentMainHandController: 5
+  currentMainHand_Trigger: 4
+  currentMainHand_Grab: 5
+  currentMainController: 2
+  currentOtherHandTransform: {fileID: 1094213808}
+  currentOtherHandController: 4
+  currentOtherHand_Trigger: 4
+  currentOtherHand_Grab: 5
+  currentOtherController: 1
 --- !u!4 &2010183779
 Transform:
   m_ObjectHideFlags: 0
@@ -883,7 +903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066988324}
   m_Layer: 0
-  m_Name: --- GameActive ---
+  m_Name: --- Game Active ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17123,9 +17143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
-  rayTransform: {fileID: 1094213808}
+  rayTransform: {fileID: 343006806}
   m_Cursor: {fileID: 9035653278421230434}
-  joyPadClickButton: 8192
+  joyPadClickButton: 2097152
   gazeClickKey: 32
   performSphereCastForGazepointer: 0
   useRightStickScroll: 1
