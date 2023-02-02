@@ -7,6 +7,7 @@ using UnityEditor;
 /// Hierarchy Window Group Header
 /// http://diegogiacomelli.com.br/unitytips-hierarchy-window-group-header
 /// </summary>
+#if UNITY_EDITOR
 [InitializeOnLoad]
 public static class HierarchyWindowGroupHeader
 {
@@ -26,3 +27,4 @@ public static class HierarchyWindowGroupHeader
         }
     }
 }
+#endif
