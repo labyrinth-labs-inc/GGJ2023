@@ -7,6 +7,7 @@ TagManager:
   - SamplesInfoPanel
   - RoomLight
   - Sliceable
+  - Defense
   layers:
   - Default
   - TransparentFX

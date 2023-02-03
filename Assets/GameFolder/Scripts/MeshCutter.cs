@@ -6,13 +6,13 @@ using EzySlice;
 public class MeshCutter : MonoBehaviour
 {
     public GameObject cutDirection;
-    public Material crossSectionMaterial;
+    Material crossSectionMaterial;
     GameObject objectToSlice;
 
     Vector3 oldPos;
     void Start() 
     {
-        StartCoroutine(GetOldPos());
+        //StartCoroutine(GetOldPos());
     }
     // void Update()
     // {
@@ -24,19 +24,22 @@ public class MeshCutter : MonoBehaviour
         if(other.gameObject.CompareTag("Sliceable"))
         {
             objectToSlice = other.gameObject;
+            Transform toParent = other.transform.parent;
+            crossSectionMaterial = GetMaterial(objectToSlice);
             Vector3 direction = transform.TransformDirection(cutDirection.transform.forward);
             Vector3 posWorld = other.GetContact(0).point;
             List<GameObject> slicesList = Slice(posWorld, direction);
-            if(slicesList != null)objectToSlice.SetActive(false);
+            if(slicesList != null)
+            {
+                objectToSlice.GetComponent<Enemy>().Defeated();
+            }
             foreach (GameObject slice in slicesList)
             {
                 slice.AddComponent<MeshCollider>().convex = true;
                 Rigidbody rbSlice = slice.AddComponent<Rigidbody>();
-                //rbSlice.useGravity = false;
-                rbSlice.AddForce(this.transform.forward*3f,ForceMode.Impulse);
+                rbSlice.AddForce(direction*10f,ForceMode.Impulse);
                 Destroy(slice,4f);
             }
-            Invoke("Respawn",6f);
         }
     }
 
@@ -50,15 +53,16 @@ public class MeshCutter : MonoBehaviour
         return tempGoList;
     }
 
-    void Respawn()
+    private Material GetMaterial(GameObject go)
     {
-        objectToSlice.SetActive(true);
+        Material getMaterial = go.GetComponent<MeshRenderer>().material;
+        return getMaterial;
     }
 
-    IEnumerator GetOldPos()
-    {
-        oldPos = this.transform.TransformPoint(Vector3.zero);
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(GetOldPos());
-    }
+    // IEnumerator GetOldPos()
+    // {
+    //     oldPos = this.transform.TransformPoint(Vector3.zero);
+    //     yield return new WaitForSeconds(0.5f);
+    //     StartCoroutine(GetOldPos());
+    // }
 }
