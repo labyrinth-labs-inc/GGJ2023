@@ -12,10 +12,11 @@ public class EnemySpawner : MonoBehaviour
 
     GameObject currentEnemy;
 
-    int indexEnemy;
+    int indexEnemy = 0;
 
     private void Start() 
     {
+        if(enemies != null)
         StartCoroutine(SpawnEnemy());
     }
 

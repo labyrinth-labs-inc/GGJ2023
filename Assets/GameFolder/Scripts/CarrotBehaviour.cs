@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadishBehaviour : Enemy
+public class CarrotBehaviour : Enemy
 {
     Rigidbody rb;
 
