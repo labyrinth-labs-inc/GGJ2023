@@ -8,9 +8,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject player;
     
     [Header("Enemies")]
-    [SerializeField] GameObject radishEnemy;
+    [SerializeField] List<GameObject> enemies;
 
     GameObject currentEnemy;
+
+    int indexEnemy;
 
     private void Start() 
     {
@@ -22,9 +24,17 @@ public class EnemySpawner : MonoBehaviour
         if(currentEnemy == null)
         {
             yield return new WaitForSeconds(3f);
-            currentEnemy = Instantiate(radishEnemy, this.transform.position, this.transform.rotation);
+            currentEnemy = Instantiate(RandomEnemy(), this.transform.position, this.transform.rotation);
         }
         yield return null;
         StartCoroutine(SpawnEnemy());
     }
+
+    private GameObject RandomEnemy()
+    {
+        GameObject go = enemies[indexEnemy];
+        indexEnemy += 1;
+        if(indexEnemy >= enemies.Count)indexEnemy = 0;
+        return go;
+    } 
 }
