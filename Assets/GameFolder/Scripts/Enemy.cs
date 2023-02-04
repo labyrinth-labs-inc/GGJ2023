@@ -6,21 +6,19 @@ public class Enemy : MonoBehaviour
 {
     [Header("Reference")]
     GameObject player;
+    bool isParry = false;
     [SerializeField]GameObject leftHand;
     [SerializeField]GameObject rightHand;
     [SerializeField]Animator animator;
     public void Defeated()
     {
-        animator.Play("none");
         animator.enabled = false;
-        leftHand.transform.parent = null;
-        rightHand.transform.parent = null;
+        animator.Play("none");
+        this.transform.DetachChildren();
         leftHand.AddComponent<MeshCollider>().convex = true;
         rightHand.AddComponent<MeshCollider>().convex = true;
         Rigidbody rbLeftHand = leftHand.AddComponent<Rigidbody>();
         Rigidbody rbRightHand = rightHand.AddComponent<Rigidbody>();
-        rbLeftHand.velocity = rbLeftHand.transform.forward *-1;
-        rbRightHand.velocity = rbRightHand.transform.forward *-1;
         Destroy(leftHand, 3f);
         Destroy(rightHand, 3f);
         Die();
@@ -29,12 +27,29 @@ public class Enemy : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+    public void Parry()
+    {
+        isParry = true;
+    }
+    public bool GetParry()
+    {
+        return isParry;
+    }
+    public void SetParry(bool value)
+    {
+        isParry = value;
+    }
     public GameObject GetPlayer()
     {
         return player;
+    }
+    public Animator GetAnimator()
+    {
+        return animator;
     }
     public void SetPlayer(GameObject player)
     {
         this.player = player;
     }
+
 }

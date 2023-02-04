@@ -22,13 +22,13 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-       // if(currentEnemy == null)
-        //{
+        if(currentEnemy == null)
+        {
             yield return new WaitForSeconds(6f);
             currentEnemy = Instantiate(RandomEnemy(), RandomSpawnPoint().position, RandomSpawnPoint().rotation);
             Enemy enemyComp = currentEnemy.GetComponent<Enemy>();
             enemyComp.SetPlayer(player);
-        //}
+        }
         yield return null;
         StartCoroutine(SpawnEnemy());
     }

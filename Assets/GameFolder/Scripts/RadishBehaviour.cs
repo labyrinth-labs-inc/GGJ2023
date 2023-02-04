@@ -9,6 +9,7 @@ public class RadishBehaviour : Enemy
     [Header("Attributes")]
     [SerializeField] float velocity = 3f;
     [SerializeField] float distanceToPlayer = 3f;
+    bool canAttack = true;
 
     void Awake() 
     {
@@ -22,6 +23,30 @@ public class RadishBehaviour : Enemy
         this.transform.rotation = Quaternion.Euler(0,this.transform.rotation.eulerAngles.y,0);
         if(distance > distanceToPlayer)
             rb.velocity = direction * velocity;
-        else rb.velocity = Vector3.zero;
+        else 
+        {
+            rb.velocity = Vector3.zero;
+            StartCoroutine(Attack());
+        }
+        if(GetParry() && !canAttack)
+        {
+            GetAnimator().Play("RadishDefense");
+            SetParry(false);   
+        }    
+    }
+
+
+
+    IEnumerator Attack()
+    {
+        if(canAttack && !GetParry())
+        {
+            canAttack = false;
+            GetAnimator().Play("RadishAttack");
+            GetAnimator().SetTrigger("idle");
+            yield return new WaitForSeconds(3f);
+            canAttack = true;
+        }
+        yield return null;
     }
 }

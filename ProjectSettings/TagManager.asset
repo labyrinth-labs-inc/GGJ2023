@@ -8,6 +8,7 @@ TagManager:
   - RoomLight
   - Sliceable
   - Defense
+  - Enemy
   layers:
   - Default
   - TransparentFX
