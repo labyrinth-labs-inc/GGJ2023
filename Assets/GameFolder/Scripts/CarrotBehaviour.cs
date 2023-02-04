@@ -5,10 +5,12 @@ using UnityEngine;
 public class CarrotBehaviour : Enemy
 {
     Rigidbody rb;
-
+    [SerializeField] GameObject spawnPoint;
     [Header("Attributes")]
     [SerializeField] float velocity = 3f;
     [SerializeField] float distanceToPlayer = 3f;
+    [Header("Prefab")]
+    [SerializeField] GameObject kunaiPrefab;
 
     bool canAttack = true;
 
@@ -20,9 +22,32 @@ public class CarrotBehaviour : Enemy
     {
         float distance = Vector3.Distance(GetPlayer().transform.position, this.transform.position);
         Vector3 direction = (GetPlayer().transform.position - this.transform.position).normalized;
+        this.transform.LookAt(GetPlayer().transform);
+        this.transform.rotation = Quaternion.Euler(0,this.transform.rotation.eulerAngles.y,0);
         if(distance > distanceToPlayer)
             rb.velocity = direction * velocity;
-        else rb.velocity = Vector3.zero;
+        else 
+        {
+            rb.velocity = Vector3.zero;
+            StartCoroutine(Attack());
+        }
+    }
+
+    IEnumerator Attack()
+    {
+        if(canAttack)
+        {
+            canAttack = false;
+            GetAnimator().Play("CarrotAttack");
+            GameObject go = Instantiate(kunaiPrefab,
+                                        spawnPoint.transform.position,
+                                        spawnPoint.transform.rotation);
+            go.GetComponent<Rigidbody>().velocity = go.transform.forward * 3f;
+            go.GetComponent<KunaiBehaviour>().SetOwner(this.gameObject);
+            yield return new WaitForSeconds(6f);
+            canAttack = true;
+        }
+        yield return null;
     }
     
 }

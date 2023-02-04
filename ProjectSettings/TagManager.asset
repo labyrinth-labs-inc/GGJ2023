@@ -9,6 +9,7 @@ TagManager:
   - Sliceable
   - Defense
   - Enemy
+  - Kunai
   layers:
   - Default
   - TransparentFX

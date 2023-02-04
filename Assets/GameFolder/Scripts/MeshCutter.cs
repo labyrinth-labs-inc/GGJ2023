@@ -10,15 +10,7 @@ public class MeshCutter : MonoBehaviour
     GameObject objectToSlice;
 
     Vector3 oldPos;
-    void Start() 
-    {
-        //StartCoroutine(GetOldPos());
-    }
-    // void Update()
-    // {
-    //     Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-    //     Debug.DrawRay(transform.position + offset, forward, Color.green);
-    // }
+
     void OnCollisionEnter(Collision other) 
     {
         if(other.GetContact(0).otherCollider.gameObject.CompareTag("Sliceable"))
@@ -36,7 +28,6 @@ public class MeshCutter : MonoBehaviour
                 {
                     slice.AddComponent<MeshCollider>().convex = true;
                     Rigidbody rbSlice = slice.AddComponent<Rigidbody>();
-                    //rbSlice.AddForce(direction*5f,ForceMode.Impulse);
                     Destroy(slice,4f);
                 }
             }
@@ -68,11 +59,4 @@ public class MeshCutter : MonoBehaviour
         Material getMaterial = go.GetComponent<MeshRenderer>().material;
         return getMaterial;
     }
-
-    // IEnumerator GetOldPos()
-    // {
-    //     oldPos = this.transform.TransformPoint(Vector3.zero);
-    //     yield return new WaitForSeconds(0.5f);
-    //     StartCoroutine(GetOldPos());
-    // }
 }
