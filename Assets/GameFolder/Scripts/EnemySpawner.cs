@@ -7,7 +7,8 @@ public class EnemySpawner : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject player;
     
-    [Header("Enemies")]
+    [Space(5f)]
+    [SerializeField] List<Transform> spawnPoints;
     [SerializeField] List<GameObject> enemies;
 
     GameObject currentEnemy;
@@ -16,17 +17,18 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start() 
     {
-        if(enemies != null)
         StartCoroutine(SpawnEnemy());
     }
 
     IEnumerator SpawnEnemy()
     {
-        if(currentEnemy == null)
-        {
-            yield return new WaitForSeconds(3f);
-            currentEnemy = Instantiate(RandomEnemy(), this.transform.position, this.transform.rotation);
-        }
+       // if(currentEnemy == null)
+        //{
+            yield return new WaitForSeconds(6f);
+            currentEnemy = Instantiate(RandomEnemy(), RandomSpawnPoint().position, RandomSpawnPoint().rotation);
+            Enemy enemyComp = currentEnemy.GetComponent<Enemy>();
+            enemyComp.SetPlayer(player);
+        //}
         yield return null;
         StartCoroutine(SpawnEnemy());
     }
@@ -38,4 +40,9 @@ public class EnemySpawner : MonoBehaviour
         if(indexEnemy >= enemies.Count)indexEnemy = 0;
         return go;
     } 
+
+    private Transform RandomSpawnPoint()
+    {
+        return spawnPoints[Random.Range(0,spawnPoints.Count)];
+    }
 }

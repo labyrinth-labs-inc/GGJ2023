@@ -37,7 +37,7 @@ public class MeshCutter : MonoBehaviour
             {
                 slice.AddComponent<MeshCollider>().convex = true;
                 Rigidbody rbSlice = slice.AddComponent<Rigidbody>();
-                rbSlice.AddForce(direction*10f,ForceMode.Impulse);
+                rbSlice.AddForce(direction*5f,ForceMode.Impulse);
                 Destroy(slice,4f);
             }
         }

@@ -8,13 +8,20 @@ public class RadishBehaviour : Enemy
 
     [Header("Attributes")]
     [SerializeField] float velocity = 3f;
+    [SerializeField] float distanceToPlayer = 3f;
 
-    private void Awake() 
+    void Awake() 
     {
         rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
-        rb.velocity = this.transform.forward * velocity;
+        float distance = Vector3.Distance(GetPlayer().transform.position, this.transform.position);
+        Vector3 direction = (GetPlayer().transform.position - this.transform.position).normalized;
+        this.transform.LookAt(GetPlayer().transform);
+        this.transform.rotation = Quaternion.Euler(0,this.transform.rotation.eulerAngles.y,0);
+        if(distance > distanceToPlayer)
+            rb.velocity = direction * velocity;
+        else rb.velocity = Vector3.zero;
     }
 }

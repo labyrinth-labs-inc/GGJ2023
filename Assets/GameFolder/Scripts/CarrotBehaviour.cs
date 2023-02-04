@@ -8,13 +8,21 @@ public class CarrotBehaviour : Enemy
 
     [Header("Attributes")]
     [SerializeField] float velocity = 3f;
+    [SerializeField] float distanceToPlayer = 3f;
 
-    private void Awake() 
+    bool canAttack = true;
+
+    void Awake() 
     {
         rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
-        rb.velocity = this.transform.forward * velocity;
+        float distance = Vector3.Distance(GetPlayer().transform.position, this.transform.position);
+        Vector3 direction = (GetPlayer().transform.position - this.transform.position).normalized;
+        if(distance > distanceToPlayer)
+            rb.velocity = direction * velocity;
+        else rb.velocity = Vector3.zero;
     }
+    
 }
