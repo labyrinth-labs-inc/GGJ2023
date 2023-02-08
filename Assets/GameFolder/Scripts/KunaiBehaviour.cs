@@ -17,12 +17,13 @@ public class KunaiBehaviour : MonoBehaviour
             Vector3 direction = (owner.transform.position - this.transform.position).normalized;
             this.transform.LookAt(owner.transform);
             this.transform.rotation = Quaternion.Euler(0,this.transform.rotation.eulerAngles.y,0);
-            rb.velocity = direction*3f;
+            rb.velocity = direction*6f;
+            Invoke("Die", 6f);
         }
         else if(other.GetContact(0).otherCollider.gameObject.tag == "Sliceable")
         {
             rb.useGravity = true;
-            Invoke("Die", 2f);
+            Invoke("Die", 1f);
         }
     }
 
