@@ -26,6 +26,7 @@ public class MeshCutter : MonoBehaviour
                 objectToSlice.GetComponent<Enemy>().Defeated();
                 foreach (GameObject slice in slicesList)
                 {
+                    slice.layer = 6; //Sliced Layer
                     slice.AddComponent<MeshCollider>().convex = true;
                     Rigidbody rbSlice = slice.AddComponent<Rigidbody>();
                     Destroy(slice,4f);
