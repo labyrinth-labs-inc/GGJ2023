@@ -16,7 +16,6 @@ public class MeshCutter : MonoBehaviour
         if(other.GetContact(0).otherCollider.gameObject.CompareTag("Sliceable"))
         {
             objectToSlice = other.gameObject;
-            Transform toParent = other.transform.parent;
             crossSectionMaterial = GetMaterial(objectToSlice);
             Vector3 direction = transform.TransformDirection(cutDirection.transform.forward);
             Vector3 posWorld = other.GetContact(0).point;
@@ -24,6 +23,25 @@ public class MeshCutter : MonoBehaviour
             if(slicesList != null)
             {
                 objectToSlice.GetComponent<Enemy>().Defeated();
+                foreach (GameObject slice in slicesList)
+                {
+                    slice.layer = 6; //Sliced Layer
+                    slice.AddComponent<MeshCollider>().convex = true;
+                    Rigidbody rbSlice = slice.AddComponent<Rigidbody>();
+                    Destroy(slice,4f);
+                }
+            }
+        }
+        else if(other.GetContact(0).otherCollider.gameObject.CompareTag("SliceableMenu"))
+        {
+            objectToSlice = other.gameObject;
+            crossSectionMaterial = GetMaterial(objectToSlice);
+            Vector3 direction = transform.TransformDirection(cutDirection.transform.forward);
+            Vector3 posWorld = other.GetContact(0).point;
+            List<GameObject> slicesList = Slice(posWorld, direction);
+            if(slicesList != null)
+            {
+                Destroy(objectToSlice);
                 foreach (GameObject slice in slicesList)
                 {
                     slice.layer = 6; //Sliced Layer
