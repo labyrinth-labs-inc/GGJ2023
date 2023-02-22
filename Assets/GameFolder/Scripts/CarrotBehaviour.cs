@@ -31,6 +31,14 @@ public class CarrotBehaviour : Enemy
             rb.velocity = Vector3.zero;
             StartCoroutine(Attack());
         }
+        if(GetDefeated())
+        {
+            Debug.Log("isDefeated");
+            this.GetComponent<MeshCollider>().enabled = false;
+            this.GetComponent<MeshRenderer>().enabled = false;
+            SetDefeated(false);
+            Destroy(this.gameObject, 3f);
+        }
     }
 
     IEnumerator Attack()

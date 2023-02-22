@@ -282,6 +282,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 737eafaad7067d54ab7508e97582d0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  attackSounds:
+  - {fileID: 8300000, guid: c02d0adeab632e749947beafd4f65635, type: 3}
+  - {fileID: 8300000, guid: e796830c2592aa34db47238518d67ea5, type: 3}
+  - {fileID: 8300000, guid: 41051391f12f1d24688b07a3ac12d80e, type: 3}
+  - {fileID: 8300000, guid: ca79db0df84767a46a2237c006fafd75, type: 3}
+  defenseSounds:
+  - {fileID: 8300000, guid: a9026b80c9e8304489532dbd048cf741, type: 3}
+  - {fileID: 8300000, guid: edcc6af53d8b1b04da08a31b1f71abeb, type: 3}
   cutDirection: {fileID: 5943771390163933852}
 --- !u!1 &8885829677950971262
 GameObject:

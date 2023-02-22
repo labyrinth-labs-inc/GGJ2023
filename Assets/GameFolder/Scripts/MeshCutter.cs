@@ -5,6 +5,10 @@ using EzySlice;
 
 public class MeshCutter : MonoBehaviour
 {
+    [Header("Sounds")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField]List<AudioClip> attackSounds;
+    [SerializeField]List<AudioClip> defenseSounds;
     public GameObject cutDirection;
     Material crossSectionMaterial;
     GameObject objectToSlice;
@@ -15,6 +19,7 @@ public class MeshCutter : MonoBehaviour
     {
         if(other.GetContact(0).otherCollider.gameObject.CompareTag("Sliceable"))
         {
+            if(audioSource)PlayAttackingSounds();
             objectToSlice = other.gameObject;
             crossSectionMaterial = GetMaterial(objectToSlice);
             Vector3 direction = transform.TransformDirection(cutDirection.transform.forward);
@@ -56,7 +61,10 @@ public class MeshCutter : MonoBehaviour
             objectToSlice = other.gameObject;
             Debug.Log("Parry");
             objectToSlice.GetComponent<Enemy>().Parry();
+            if(audioSource)PlayDefendingSounds();
         }
+        else if(other.GetContact(0).otherCollider.gameObject.CompareTag("Kunai"))
+            if(audioSource)PlayDefendingSounds();
     }
 
     public List<GameObject> Slice(Vector3 planeWorldPosition, Vector3 planeWorldDirection) 
@@ -77,5 +85,16 @@ public class MeshCutter : MonoBehaviour
     {
         Material getMaterial = go.GetComponent<MeshRenderer>().material;
         return getMaterial;
+    }
+
+    private void PlayAttackingSounds()
+    {
+        audioSource.clip = attackSounds[Random.Range(0,attackSounds.Count)];
+        audioSource.Play();
+    }
+    private void PlayDefendingSounds()
+    {
+        audioSource.clip = defenseSounds[Random.Range(0,defenseSounds.Count)];
+        audioSource.Play();
     }
 }

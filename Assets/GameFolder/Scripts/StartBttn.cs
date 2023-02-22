@@ -11,9 +11,14 @@ public class StartBttn : MonoBehaviour
     private void Update() {
         // teste.text = "foi reload";
     }
+    
+    void OnCollisionEnter(Collision other)
+    {
+        
+    }
     void OnDestroy() 
     {
-        Invoke("StartGame",1.5f);   
+        StartGame(); 
     }
 
     void StartGame()

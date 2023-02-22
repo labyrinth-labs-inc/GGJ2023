@@ -5,7 +5,10 @@ using UnityEngine;
 public class RadishBehaviour : Enemy
 {
     Rigidbody rb;
-
+    [Header("Sounds")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] List<AudioClip> dyingSounds;
+    [SerializeField] List<AudioClip> shoutingSounds;
     [Header("Attributes")]
     [SerializeField] float velocity = 3f;
     [SerializeField] float distanceToPlayer = 3f;
@@ -14,6 +17,10 @@ public class RadishBehaviour : Enemy
     void Awake() 
     {
         rb = GetComponent<Rigidbody>();
+    }
+    void Start()
+    {
+        PlayShouting();
     }
     void Update()
     {
@@ -33,9 +40,18 @@ public class RadishBehaviour : Enemy
             GetAnimator().Play("RadishDefense");
             SetParry(false);   
         }    
+        if(GetDefeated())
+        {
+            Debug.Log("isDefeated");
+            this.GetComponent<MeshCollider>().enabled = false;
+            this.GetComponent<MeshRenderer>().enabled = false;
+            SetDefeated(false);
+            audioSource.transform.SetParent(null, false);
+            PlayDying();
+            Destroy(audioSource.gameObject, audioSource.clip.length);
+            Destroy(this.gameObject, audioSource.clip.length);
+        }
     }
-
-
 
     IEnumerator Attack()
     {
@@ -48,5 +64,16 @@ public class RadishBehaviour : Enemy
             canAttack = true;
         }
         yield return null;
+    }
+
+    private void PlayShouting()
+    {
+        audioSource.clip = shoutingSounds[Random.Range(0,shoutingSounds.Count)];
+        audioSource.Play();
+    }
+    private void PlayDying()
+    {
+        audioSource.clip = dyingSounds[Random.Range(0,dyingSounds.Count)];
+        audioSource.Play();
     }
 }

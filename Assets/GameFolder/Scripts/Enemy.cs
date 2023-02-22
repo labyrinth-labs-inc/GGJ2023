@@ -7,11 +7,13 @@ public class Enemy : MonoBehaviour
     [Header("Reference")]
     GameObject player;
     bool isParry = false;
+    bool isDefeated = false;
     [SerializeField]GameObject leftHand;
     [SerializeField]GameObject rightHand;
     [SerializeField]Animator animator;
     public void Defeated()
     {
+        isDefeated = true;
         animator.enabled = false;
         animator.Play("none");
         this.transform.DetachChildren();
@@ -25,19 +27,28 @@ public class Enemy : MonoBehaviour
     }
     private void Die()
     {
-        Destroy(this.gameObject);
+        //this.gameObject.SetActive(false);
+        //Destroy(this.gameObject);
     }
     public void Parry()
     {
         isParry = true;
     }
-    public bool GetParry()
-    {
-        return isParry;
-    }
     public void SetParry(bool value)
     {
         isParry = value;
+    }
+    public void SetPlayer(GameObject player)
+    {
+        this.player = player;
+    }
+    public void SetDefeated(bool value)
+    {
+        isDefeated = value;
+    }
+    public bool GetParry()
+    {
+        return isParry;
     }
     public GameObject GetPlayer()
     {
@@ -47,9 +58,9 @@ public class Enemy : MonoBehaviour
     {
         return animator;
     }
-    public void SetPlayer(GameObject player)
+    public bool GetDefeated()
     {
-        this.player = player;
+        return isDefeated;
     }
 
 }
